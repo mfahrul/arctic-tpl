@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"io.giftano.api/go_core/config"
+	"{{.Projectpath}}/config"
 )
 
 var e = config.NewConfig()

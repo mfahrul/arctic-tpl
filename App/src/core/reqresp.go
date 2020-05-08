@@ -3,7 +3,7 @@ package core
 import (
 	"time"
 
-	"io.giftano.api/go_core/config"
+	"{{.Projectpath}}/config"
 )
 
 type (

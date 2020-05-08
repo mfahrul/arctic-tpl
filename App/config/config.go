@@ -9,12 +9,12 @@ import (
 //Environment environment
 type Environment struct {
 	Version     string `envconfig:"VERSION" default:"0.1.1"`
-	DbName      string `envconfig:"DBNAME" default:"giftanoDb"`
-	DbUsername  string `envconfig:"DBUSENAME" default:"root"`
-	DbPassword  string `envconfig:"DBPASSWORD" default:"Giftano_Id"`
-	DbHost      string `envconfig:"DBHOST" default:"localhost"`
-	DbPort      string `envconfig:"DBPORT" default:"27017"`
-	ServiceName string `envconfig:"SERVICENAME" default:"core"`
+	DbName      string `envconfig:"DBNAME" default:"{{.Dbname}}"`
+	DbUsername  string `envconfig:"DBUSENAME" default:"{{.Dbusername}}"`
+	DbPassword  string `envconfig:"DBPASSWORD" default:"{{.Dbpassword}}"`
+	DbHost      string `envconfig:"DBHOST" default:"{{.Dbhost}}"`
+	DbPort      string `envconfig:"DBPORT" default:"{{.Dbport}}"`
+	ServiceName string `envconfig:"SERVICENAME" default:"{{.Projectname}}"`
 }
 
 //NewConfig function

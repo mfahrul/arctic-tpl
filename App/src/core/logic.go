@@ -8,7 +8,7 @@ import (
 	"github.com/go-kit/kit/log/level"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"io.giftano.api/go_core/utils"
+	"{{.Projectpath}}/utils"
 )
 
 type service struct {

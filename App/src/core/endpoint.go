@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"io.giftano.api/go_core/config"
+	"{{.Projectpath}}/config"
 )
 
 var responseMessage interface{}

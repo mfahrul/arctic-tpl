@@ -11,7 +11,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 	"go.mongodb.org/mongo-driver/mongo"
-	"io.giftano.api/go_core/config"
+	"{{.Projectpath}}/config"
 )
 
 //Server struct
@@ -42,17 +42,12 @@ func Run(ctx context.Context, db *mongo.Database, logger log.Logger) error {
 			"giftano":      "Welcome",
 			"service_name": e.ServiceName + "_api",
 			"api_version":  e.Version,
-			"package":      "io.giftano.api",
 		})
 	})
-
-	fmt.Println("servers count", len(NewServer.servers))
 
 	for _, srv := range NewServer.servers {
 		srv.Route(ctx, r, db, logger)
 	}
-
-	// core.Route(r, itemEndpoint)
 
 	url := ginSwagger.URL("doc.json")
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

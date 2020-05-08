@@ -10,22 +10,17 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
-	"io.giftano.api/go_core/config/database"
+	"{{.Projectpath}}/config/database"
 
-	_ "io.giftano.api/go_core/docs"
-	_ "io.giftano.api/go_core/src/core"
+	_ "{{.Projectpath}}/src/core"
 
-	"io.giftano.api/go_core/route"
+	"{{.Projectpath}}/route"
 )
 
 // @title Giftano Core API Docs
 // @version 0.1.1
 // @description Dashboard users management service.
 // @termsOfService http://swagger.io/terms/
-
-// @contact.name Giftano API Support
-// @contact.url http://giftano.io
-// @contact.email fahrul@giftano.com
 
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
@@ -36,9 +31,6 @@ import (
 // @in header
 // @name apikey
 
-//// @host 4438266.giftano.io
-//// @host sandbox.giftano.io
-//// @BasePath /api/dashboard/manage-user
 // @host localhost:8080
 // @BasePath /
 

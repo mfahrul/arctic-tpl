@@ -1,4 +1,4 @@
-module io.giftano.api/go_core
+module {{.Projectpath}}
 
 go 1.14
 
