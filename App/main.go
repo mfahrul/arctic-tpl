@@ -11,8 +11,13 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"{{.Projectpath}}/config/database"
-
-	_ "{{.Projectpath}}/src/core"
+	{{ with $Ppath := .Projectpath }}
+		{{ with .Modules }}
+			{{ range . }}
+				_ "{{$Ppath}}/src/{{.Name}}"
+			{{ end }}
+		{{ end }}
+	{{ end }}
 
 	"{{.Projectpath}}/route"
 )
