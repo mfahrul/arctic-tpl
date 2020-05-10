@@ -11,18 +11,12 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"{{.Projectpath}}/config/database"
-	{{ with $Ppath := .Projectpath }}
-		{{ with .Modules }}
-			{{ range . }}
-				_ "{{$Ppath}}/src/{{.Name}}"
-			{{ end }}
-		{{ end }}
-	{{ end }}
-
+	{{$Ppath := .Projectpath}}{{ with .Modules }}{{ range . }}
+	_ "{{$Ppath}}/src/{{.Name}}"{{"\n"}}{{ end }}{{ end }}
 	"{{.Projectpath}}/route"
 )
 
-// @title Giftano Core API Docs
+// @title Giftano {{.Projectname | Title}} API Docs
 // @version 0.1.1
 // @description Dashboard users management service.
 // @termsOfService http://swagger.io/terms/
