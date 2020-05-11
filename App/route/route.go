@@ -11,7 +11,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 	"go.mongodb.org/mongo-driver/mongo"
-	"{{.Projectpath}}/config"
+	"[[.Projectpath]]/config"
 )
 
 //Server struct

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"{{.Projectpath}}/config"
+	"[[.Projectpath]]/config"
 )
 
 var responseMessage interface{}

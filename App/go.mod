@@ -1,4 +1,4 @@
-module {{.Projectpath}}
+module [[.Projectpath]]
 
 go 1.14
 

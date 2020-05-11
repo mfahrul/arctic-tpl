@@ -3,7 +3,7 @@ package core
 import (
 	"time"
 
-	"{{.Projectpath}}/config"
+	"[[.Projectpath]]/config"
 )
 
 type (

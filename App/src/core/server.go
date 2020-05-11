@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-kit/kit/log"
 	"go.mongodb.org/mongo-driver/mongo"
-	"{{.Projectpath}}/route"
+	"[[.Projectpath]]/route"
 )
 
 var server = &route.Server{
