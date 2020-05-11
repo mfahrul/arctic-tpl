@@ -14,7 +14,7 @@ type Environment struct {
 	DbPassword  string `envconfig:"DBPASSWORD" default:"{{.Dbpassword}}"`
 	DbHost      string `envconfig:"DBHOST" default:"{{.Dbhost}}"`
 	DbPort      string `envconfig:"DBPORT" default:"{{.Dbport}}"`
-	ServiceName string `envconfig:"SERVICENAME" default:"{{.Projectname}}"`
+	ServiceName string `envconfig:"SERVICENAME" default:"{{.Projectname | Title}}"`
 }
 
 //NewConfig function
