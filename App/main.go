@@ -16,7 +16,7 @@ import (
 	"[[.Projectpath]]/route"
 )
 
-// @title Giftano [[.Projectname | Title]] API Docs
+// @title Giftano [[.Projectname | ToCamel]] API Docs
 // @version 0.1.1
 // @description Dashboard users management service.
 // @termsOfService http://swagger.io/terms/

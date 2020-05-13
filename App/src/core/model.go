@@ -5,14 +5,11 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
-
-//Item struct
-type Item struct {
-	ID             *primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`
-	ItemName       string              `bson:"ItemName" json:"item_name"`
-	ItemDesc       string              `bson:"ItemDesc" json:"item_desc"`
-	AdditionalInfo []string            `bson:"AdditionalInfo" json:"additional_info"`
-	Status         int                 `bson:"Status" json:"status"` //0, 1, 9 => notactive, activate, ban
+[[ with .ModuleToParse.Models ]][[ range . ]] 
+//[[.Name | ToCamel]] struct
+type [[.Name | ToCamel]] struct {
+	ID             *primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`[[ with .Structures ]][[ range . ]]
+	[[.Name | ToCamel]]       [[.Type]]              `bson:"[[.Name | ToCamel]]" json:"[[.Name | ToSnake]]"`[[ end ]][[ end ]]
 	IsDeleted      bool                `bson:"IsDeleted" json:"is_deleted"`
 	CreatedBy      *primitive.ObjectID `bson:"CreatedBy,omitempty" json:"created_by,omitempty"`
 	UpdatedBy      *primitive.ObjectID `bson:"UpdatedBy,omitempty" json:"updated_by,omitempty"`
@@ -24,8 +21,9 @@ type Item struct {
 
 //Repository interface
 type Repository interface {
-	CreateItem(item Item) (string, error)
-	GetItemByID(id string) (Item, error)
-	GetAllItems() ([]Item, error)
-	UpdateItem(id string, update interface{}) (Item, error)
+	Create[[.Name | ToCamel]]([[.Name | ToLower]] [[.Name | ToCamel]]) (string, error)
+	Get[[.Name | ToCamel]]ByID(id string) ([[.Name | ToCamel]], error)
+	GetAll[[.Name | ToCamel]]s() ([][[.Name | ToCamel]], error)
+	Update[[.Name | ToCamel]](id string, update interface{}) ([[.Name | ToCamel]], error)
 }
+[[ end ]][[ end ]]
