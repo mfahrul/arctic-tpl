@@ -1,11 +1,10 @@
-package core
+package [[ with .ModuleToParse ]][[.Name]][[ end ]]
 
 //Service interface
-type Service interface {
-	CreateItem(item CreateItemReq) (string, error)
-	GetItemByID(id string) (Item, error)
-	GetAllItems() ([]Item, error)
-	UpdateItem(id string, update UpdateItemReq) (Item, error)
-	DeleteItem(id string, deletedby string) (Item, error)
-	// GetRepo() Repository
+type Service interface { [[ with .ModuleToParse.Model ]]
+	Create[[.Name | ToCamel]](item Create[[.Name | ToCamel]]Req) (string, error)
+	Get[[.Name | ToCamel]]ByID(id string) ([[.Name | ToCamel]], error)
+	GetAll[[.Name | ToCamel | ToPlural]]() ([][[.Name | ToCamel]], error)
+	Update[[.Name | ToCamel]](id string, update Update[[.Name | ToCamel]]Req) ([[.Name | ToCamel]], error)
+	Delete[[.Name | ToCamel]](id string, deletedby string) ([[.Name | ToCamel]], error)[[ end ]]
 }

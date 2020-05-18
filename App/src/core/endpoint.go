@@ -1,4 +1,4 @@
-package core
+package [[ with .ModuleToParse ]][[.Name]][[ end ]]
 
 import (
 	"net/http"
@@ -7,45 +7,45 @@ import (
 	"[[.Projectpath]]/config"
 )
 
-var responseMessage interface{}
+var responseMessage interface{} [[ with .ModuleToParse.Model ]]
 
-//Endpoints struct
+//Endpoints struct 
 type Endpoints struct {
-	CreateItem  gin.HandlerFunc
-	GetItemByID gin.HandlerFunc
-	GetAllItems gin.HandlerFunc
-	UpdateItem  gin.HandlerFunc
-	DeleteItem  gin.HandlerFunc
+	Create[[.Name | ToCamel]]  gin.HandlerFunc
+	Get[[.Name | ToCamel]]ByID gin.HandlerFunc
+	GetAll[[.Name | ToCamel | ToPlural]] gin.HandlerFunc
+	Update[[.Name | ToCamel]]  gin.HandlerFunc
+	Delete[[.Name | ToCamel]]  gin.HandlerFunc
 }
 
 //MakeEndpoints functions
 func MakeEndpoints(s Service) Endpoints {
 	return Endpoints{
-		CreateItem:  makeCreateItemEndpoint(s),
-		GetItemByID: makeGetItemByIDEndpoint(s),
-		GetAllItems: makeGetAllItemEndpoint(s),
-		UpdateItem:  makeUpdateItemEndpoint(s),
-		DeleteItem:  makeDeleteItemEndpoint(s),
+		Create[[.Name | ToCamel]]: makeCreate[[.Name | ToCamel]]Endpoint(s),
+		Get[[.Name | ToCamel]]ByID: makeGet[[.Name | ToCamel]]ByIDEndpoint(s),
+		GetAll[[.Name | ToCamel | ToPlural]]: makeGetAll[[.Name | ToCamel]]Endpoint(s),
+		Update[[.Name | ToCamel]]: makeUpdate[[.Name | ToCamel]]Endpoint(s),
+		Delete[[.Name | ToCamel]]: makeDelete[[.Name | ToCamel]]Endpoint(s),
 	}
 }
 
-// @Summary Create a item
-// @Description Create item for access
+// @Summary Create a [[.Name | ToLower]]
+// @Description Create [[.Name | ToLower]] for access
 // @Accept  json
 // @Produce  json
-// @Param item body CreateItemReq true "Item Param"
-// @Success 201 {object} CreateItemResponse
+// @Param [[.Name | ToLower]] body Create[[.Name | ToCamel]]Req true "[[.Name | ToCamel]] Param"
+// @Success 201 {object} Create[[.Name | ToCamel]]Response
 // @Failure 400 {object} config.StatusBadRequestResponse
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 500 {object} config.StatusInternalServerErrorResponse
-// @Tags item
+// @Tags [[.Name | ToLower]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
-// @Router /item [post]
-func makeCreateItemEndpoint(s Service) gin.HandlerFunc {
+// @Router /[[.Name | ToLower]] [post]
+func makeCreate[[.Name | ToCamel]]Endpoint(s Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var item CreateItemReq
-		errBind := c.ShouldBind(&item)
+		var [[.Name | ToLower]] Create[[.Name | ToCamel]]Req
+		errBind := c.ShouldBind(&[[.Name | ToLower]])
 		if errBind != nil {
 			responseMessage = config.StatusBadRequestResponse{
 				Code:    http.StatusBadRequest,
@@ -54,14 +54,14 @@ func makeCreateItemEndpoint(s Service) gin.HandlerFunc {
 			}
 		} else {
 
-			if _, err := s.CreateItem(item); err != nil {
+			if _, err := s.Create[[.Name | ToCamel]]([[.Name | ToLower]]); err != nil {
 				responseMessage = config.StatusInternalServerErrorResponse{
 					Code:    http.StatusInternalServerError,
 					Message: http.StatusText(http.StatusInternalServerError),
 					Error:   err.Error(),
 				}
 			} else {
-				responseMessage = CreateItemResponse{
+				responseMessage = Create[[.Name | ToCamel]]Response{
 					StatusCreatedResponse: config.StatusCreatedResponse{
 						Code:    http.StatusCreated,
 						Message: http.StatusText(http.StatusCreated),
@@ -73,19 +73,19 @@ func makeCreateItemEndpoint(s Service) gin.HandlerFunc {
 	}
 }
 
-// @Summary Get all items
-// @Description Get all items
+// @Summary Get all [[.Name | ToCamel | ToPlural | ToLower]]
+// @Description Get all [[.Name | ToCamel | ToPlural | ToLower]]
 // @Produce  json
-// @Success 200 {object} GetAllItemsResponse
+// @Success 200 {object} GetAll[[.Name | ToCamel | ToPlural]]Response
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 500 {object} config.StatusInternalServerErrorResponse
-// @Tags item
+// @Tags [[.Name | ToLower]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
-// @Router /items [get]
-func makeGetAllItemEndpoint(s Service) gin.HandlerFunc {
+// @Router /[[.Name | ToCamel | ToPlural | ToLower]] [get]
+func makeGetAll[[.Name | ToCamel]]Endpoint(s Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		items, err := s.GetAllItems()
+		[[.Name | ToCamel | ToPlural | ToLower]], err := s.GetAll[[.Name | ToCamel | ToPlural]]()
 		if err != nil {
 			responseMessage = config.StatusInternalServerErrorResponse{
 				Code:    http.StatusInternalServerError,
@@ -93,13 +93,13 @@ func makeGetAllItemEndpoint(s Service) gin.HandlerFunc {
 				Error:   err.Error(),
 			}
 		} else {
-			// if len(items) > 0 {
-			responseMessage = GetAllItemsResponse{
+			// if len([[.Name | ToCamel | ToPlural | ToLower]]) > 0 {
+			responseMessage = GetAll[[.Name | ToCamel | ToPlural]]Response{
 				StatusOKResponse: config.StatusOKResponse{
 					Code:    http.StatusOK,
 					Message: http.StatusText(http.StatusOK),
 				},
-				Data: items,
+				Data: [[.Name | ToCamel | ToPlural | ToLower]],
 			}
 			// } else {
 			// 	responseMessage = config.StatusInternalServerErrorResponse{
@@ -113,22 +113,22 @@ func makeGetAllItemEndpoint(s Service) gin.HandlerFunc {
 	}
 }
 
-// @Summary Get a item
-// @Description Get a item by ID
+// @Summary Get a [[.Name | ToLower]]
+// @Description Get a [[.Name | ToLower]] by ID
 // @Produce  json
-// @Param id path string true "Item ID"
-// @Success 200 {object} GetItemResponse
+// @Param id path string true "[[.Name | ToCamel]] ID"
+// @Success 200 {object} Get[[.Name | ToCamel]]Response
 // @Failure 400 {object} config.StatusBadRequestResponse
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 404 {object} config.StatusNotFoundResponse
 // @Failure 500 {object} config.StatusInternalServerErrorResponse
-// @Tags item
+// @Tags [[.Name | ToLower]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
-// @Router /item/{id} [get]
-func makeGetItemByIDEndpoint(s Service) gin.HandlerFunc {
+// @Router /[[.Name | ToLower]]/{id} [get]
+func makeGet[[.Name | ToCamel]]ByIDEndpoint(s Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var req GetItemRequest
+		var req Get[[.Name | ToCamel]]Request
 		errBind := c.ShouldBindUri(&req)
 		if errBind != nil {
 			responseMessage = config.StatusBadRequestResponse{
@@ -137,7 +137,7 @@ func makeGetItemByIDEndpoint(s Service) gin.HandlerFunc {
 				Error:   errBind.Error(),
 			}
 		} else {
-			item, err := s.GetItemByID(req.ID)
+			[[.Name | ToLower]], err := s.Get[[.Name | ToCamel]]ByID(req.ID)
 			if err != nil {
 				responseMessage = config.StatusNotFoundResponse{
 					Code:    http.StatusNotFound,
@@ -145,13 +145,13 @@ func makeGetItemByIDEndpoint(s Service) gin.HandlerFunc {
 					Error:   err.Error(),
 				}
 			} else {
-				if item.ID != nil {
-					responseMessage = GetItemResponse{
+				if [[.Name | ToLower]].ID != nil {
+					responseMessage = Get[[.Name | ToCamel]]Response{
 						StatusOKResponse: config.StatusOKResponse{
 							Code:    http.StatusOK,
 							Message: http.StatusText(http.StatusOK),
 						},
-						Data: item,
+						Data: [[.Name | ToLower]],
 					}
 				} else {
 					responseMessage = config.StatusInternalServerErrorResponse{
@@ -167,32 +167,32 @@ func makeGetItemByIDEndpoint(s Service) gin.HandlerFunc {
 	}
 }
 
-// @Summary Update a item
-// @Description Update item by ID
+// @Summary Update a [[.Name | ToLower]]
+// @Description Update [[.Name | ToLower]] by ID
 // @Accept  json
 // @Produce  json
-// @Param id path string true "Item ID"
-// @Param item body Item true "Item Param"
-// @Success 200 {object} GetItemResponse
+// @Param id path string true "[[.Name | ToCamel]] ID"
+// @Param [[.Name | ToLower]] body [[.Name | ToCamel]] true "[[.Name | ToCamel]] Param"
+// @Success 200 {object} Get[[.Name | ToCamel]]Response
 // @Failure 400 {object} config.StatusBadRequestResponse
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 500 {object} config.StatusInternalServerErrorResponse
-// @Tags item
+// @Tags [[.Name | ToLower]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
-// @Router /item/{id} [put]
-func makeUpdateItemEndpoint(s Service) gin.HandlerFunc {
+// @Router /[[.Name | ToLower]]/{id} [put]
+func makeUpdate[[.Name | ToCamel]]Endpoint(s Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var req GetItemRequest
-		var item UpdateItemReq
+		var req Get[[.Name | ToCamel]]Request
+		var [[.Name | ToLower]] Update[[.Name | ToCamel]]Req
 		errBind := c.ShouldBindUri(&req)
-		errBinditem := c.ShouldBind(&item)
-		if errBind != nil || errBinditem != nil {
+		errBind[[.Name | ToCamel]] := c.ShouldBind(&[[.Name | ToLower]])
+		if errBind != nil || errBind[[.Name | ToCamel]] != nil {
 			var err string
 			if errBind != nil {
 				err = errBind.Error()
 			} else {
-				err = errBinditem.Error()
+				err = errBind[[.Name | ToCamel]].Error()
 			}
 			responseMessage = config.StatusBadRequestResponse{
 				Code:    http.StatusBadRequest,
@@ -200,7 +200,7 @@ func makeUpdateItemEndpoint(s Service) gin.HandlerFunc {
 				Error:   err,
 			}
 		} else {
-			item, err := s.UpdateItem(req.ID, item)
+			[[.Name | ToCamel]], err := s.Update[[.Name | ToCamel]](req.ID, [[.Name | ToLower]])
 			if err != nil {
 				responseMessage = config.StatusInternalServerErrorResponse{
 					Code:    http.StatusInternalServerError,
@@ -208,12 +208,12 @@ func makeUpdateItemEndpoint(s Service) gin.HandlerFunc {
 					Error:   err.Error(),
 				}
 			} else {
-				responseMessage = GetItemResponse{
+				responseMessage = Get[[.Name | ToCamel]]Response{
 					StatusOKResponse: config.StatusOKResponse{
 						Code:    http.StatusOK,
 						Message: http.StatusText(http.StatusOK),
 					},
-					Data: item,
+					Data: [[.Name | ToCamel]],
 				}
 			}
 		}
@@ -221,23 +221,23 @@ func makeUpdateItemEndpoint(s Service) gin.HandlerFunc {
 	}
 }
 
-// @Summary Delete a item
-// @Description Delete item by ID
+// @Summary Delete a [[.Name | ToLower]]
+// @Description Delete [[.Name | ToLower]] by ID
 // @Produce  json
-// @Param id path string true "Item ID"
+// @Param id path string true "[[.Name | ToCamel]] ID"
 // @Param UserID header string true "Delete by"
-// @Success 200 {object} DeleteItemResponse
+// @Success 200 {object} Delete[[.Name | ToCamel]]Response
 // @Failure 400 {object} config.StatusBadRequestResponse
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 404 {object} config.StatusNotFoundResponse
-// @Tags item
+// @Tags [[.Name | ToLower]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
-// @Router /item/{id} [delete]
-func makeDeleteItemEndpoint(s Service) gin.HandlerFunc {
+// @Router /[[.Name | ToLower]]/{id} [delete]
+func makeDelete[[.Name | ToCamel]]Endpoint(s Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var req GetItemRequest
-		var header DeleteItemRequest
+		var req Get[[.Name | ToCamel]]Request
+		var header Delete[[.Name | ToCamel]]Request
 		errBind := c.ShouldBindUri(&req)
 		errHederBind := c.ShouldBindHeader(&header)
 
@@ -254,7 +254,7 @@ func makeDeleteItemEndpoint(s Service) gin.HandlerFunc {
 				Error:   err,
 			}
 		} else {
-			item, err := s.DeleteItem(req.ID, header.UserID)
+			[[.Name | ToLower]], err := s.Delete[[.Name | ToCamel]](req.ID, header.UserID)
 			if err != nil {
 				responseMessage = config.StatusNotFoundResponse{
 					Code:    http.StatusNotFound,
@@ -262,17 +262,17 @@ func makeDeleteItemEndpoint(s Service) gin.HandlerFunc {
 					Error:   err.Error(),
 				}
 			} else {
-				responseMessage = DeleteItemResponse{
+				responseMessage = Delete[[.Name | ToCamel]]Response{
 					StatusOKResponse: config.StatusOKResponse{
 						Code:    http.StatusOK,
 						Message: http.StatusText(http.StatusOK),
 					},
-					Data: DeletedAtItem{
-						DeletedAt: item.DeletedAt,
+					Data: DeletedAt[[.Name | ToCamel]]{
+						DeletedAt: [[.Name | ToLower]].DeletedAt,
 					},
 				}
 			}
 		}
 		c.JSON(200, responseMessage)
 	}
-}
+} [[ end ]]

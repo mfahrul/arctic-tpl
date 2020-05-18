@@ -11,6 +11,7 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"[[.Projectpath]]/config/database"
+	_"[[.Projectpath]]/docs" //COMMENT THIS LINE TO DISABLE DOCS
 	[[$Ppath := .Projectpath]][[ with .Modules ]][[ range . ]]
 	_ "[[$Ppath]]/src/[[.Name]]"[["\n"]][[ end ]][[ end ]]
 	"[[.Projectpath]]/route"

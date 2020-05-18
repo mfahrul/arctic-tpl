@@ -1,4 +1,4 @@
-package core
+package [[ with .ModuleToParse ]][[.Name]][[ end ]]
 
 import (
 	"context"
@@ -11,10 +11,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"[[.Projectpath]]/config"
 )
-
+[[ with .ModuleToParse.Model ]]
 var e = config.NewConfig()
 var errFoo = errors.New("Unable to handle Repo Request")
-var coll = []string{e.ServiceName + "_items"}
+var coll = []string{e.ServiceName + "_[[.Name | ToLower]]s"}
 
 type repo struct {
 	collection *mongo.Collection
@@ -32,17 +32,17 @@ func NewRepo(ctx context.Context, db *mongo.Database, logger log.Logger) Reposit
 	}
 }
 
-func (repo *repo) CreateItem(item Item) (stringID string, err error) {
+func (repo *repo) Create[[.Name | ToCamel]]([[.Name | ToLower]] [[.Name | ToCamel]]) (stringID string, err error) {
 
-	if item.ID != nil {
+	if [[.Name | ToLower]].ID != nil {
 		return stringID, errFoo
 	}
 
-	itemRes, err := repo.collection.InsertOne(repo.ctx, item)
+	[[.Name | ToLower]]Res, err := repo.collection.InsertOne(repo.ctx, [[.Name | ToLower]])
 	if err != nil {
 		return stringID, err
 	}
-	insertedID, ok := itemRes.InsertedID.(primitive.ObjectID)
+	insertedID, ok := [[.Name | ToLower]]Res.InsertedID.(primitive.ObjectID)
 	if !ok {
 		return stringID, errFoo
 	}
@@ -50,10 +50,10 @@ func (repo *repo) CreateItem(item Item) (stringID string, err error) {
 	return stringID, nil
 }
 
-func (repo *repo) GetItemByID(id string) (item Item, err error) {
+func (repo *repo) Get[[.Name | ToCamel]]ByID(id string) ([[.Name | ToLower]] [[.Name | ToCamel]], err error) {
 
 	if id == "" {
-		return item, errFoo
+		return [[.Name | ToLower]], errFoo
 	}
 
 	rID, _ := primitive.ObjectIDFromHex(id)
@@ -61,11 +61,11 @@ func (repo *repo) GetItemByID(id string) (item Item, err error) {
 		"_id":       rID,
 		"IsDeleted": false,
 	}
-	err = repo.collection.FindOne(repo.ctx, filter).Decode(&item)
+	err = repo.collection.FindOne(repo.ctx, filter).Decode(&[[.Name | ToLower]])
 	return
 }
 
-func (repo *repo) GetAllItems() (results []Item, err error) {
+func (repo *repo) GetAll[[.Name | ToCamel | ToPlural]]() (results [][[.Name | ToCamel]], err error) {
 	filter := []bson.M{
 		{"$match": bson.M{"IsDeleted": false}},
 		{
@@ -84,7 +84,7 @@ func (repo *repo) GetAllItems() (results []Item, err error) {
 	for cur.Next(repo.ctx) {
 
 		// create a value into which the single document can be decoded
-		var elem Item
+		var elem [[.Name | ToCamel]]
 		err := cur.Decode(&elem)
 		if err != nil {
 			return nil, err
@@ -103,9 +103,9 @@ func (repo *repo) GetAllItems() (results []Item, err error) {
 	return results, nil
 }
 
-func (repo *repo) UpdateItem(id string, update interface{}) (item Item, err error) {
+func (repo *repo) Update[[.Name | ToCamel]](id string, update interface{}) ([[.Name | ToLower]] [[.Name | ToCamel]], err error) {
 	if id == "" {
-		return item, errFoo
+		return [[.Name | ToLower]], errFoo
 	}
 
 	rID, _ := primitive.ObjectIDFromHex(id)
@@ -120,11 +120,11 @@ func (repo *repo) UpdateItem(id string, update interface{}) (item Item, err erro
 	// }
 
 	updates := bson.D{{Key: "$set", Value: update}}
-	errs := repo.collection.FindOneAndUpdate(repo.ctx, filter, updates, options.FindOneAndUpdate().SetReturnDocument(options.After)).Decode(&item)
+	errs := repo.collection.FindOneAndUpdate(repo.ctx, filter, updates, options.FindOneAndUpdate().SetReturnDocument(options.After)).Decode(&[[.Name | ToLower]])
 
 	if errs != nil {
 		err = errs
 	}
 
-	return item, err
-}
+	return [[.Name | ToLower]], err
+}[[ end ]]

@@ -1,4 +1,4 @@
-package core
+package [[ with .ModuleToParse ]][[.Name]][[ end ]]
 
 import (
 	"context"
@@ -26,10 +26,10 @@ func router(ctx context.Context, r *gin.Engine, db *mongo.Database, logger log.L
 	}
 
 	endpoints := MakeEndpoints(coreSrv)
-
-	r.POST("/item", endpoints.CreateItem)
-	r.GET("/items", endpoints.GetAllItems)
-	r.GET("/item/:ID", endpoints.GetItemByID)
-	r.PUT("/item/:ID", endpoints.UpdateItem)
-	r.DELETE("/item/:ID", endpoints.DeleteItem)
+	[[ with .ModuleToParse.Model ]]
+	r.POST("/[[.Name | ToLower]]", endpoints.Create[[.Name | ToCamel]])
+	r.GET("/[[.Name | ToLower | ToPlural]]", endpoints.GetAll[[.Name | ToCamel | ToPlural]])
+	r.GET("/[[.Name | ToLower]]/:ID", endpoints.Get[[.Name | ToCamel]]ByID)
+	r.PUT("/[[.Name | ToLower]]/:ID", endpoints.Update[[.Name | ToCamel]])
+	r.DELETE("/[[.Name | ToLower]]/:ID", endpoints.Delete[[.Name | ToCamel]]) [[ end ]]
 }
