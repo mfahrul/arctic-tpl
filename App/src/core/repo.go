@@ -14,7 +14,7 @@ import (
 [[ with .ModuleToParse.Model ]]
 var e = config.NewConfig()
 var errFoo = errors.New("Unable to handle Repo Request")
-var coll = []string{e.ServiceName + "_[[.Name | ToLower]]s"}
+var coll = []string{e.ServiceName + "_[[.Name | ToLower]]"}
 
 type repo struct {
 	collection *mongo.Collection

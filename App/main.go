@@ -13,13 +13,13 @@ import (
 	"[[.Projectpath]]/config/database"
 	_"[[.Projectpath]]/docs" //COMMENT THIS LINE TO DISABLE DOCS
 	[[$Ppath := .Projectpath]][[ with .Modules ]][[ range . ]]
-	_ "[[$Ppath]]/src/[[.Name]]"[["\n"]][[ end ]][[ end ]]
+	_ "[[$Ppath]]/src/[[.Name || ToLower | ToSingular]]"[["\n"]][[ end ]][[ end ]]
 	"[[.Projectpath]]/route"
 )
 
-// @title Giftano [[.Projectname | ToCamel]] API Docs
+// @title Giftano [[.Projectname | ToCamel | ToPlural]] API Docs
 // @version 0.1.1
-// @description Dashboard users management service.
+// @description [[.Projectname | ToCamel | ToPlural]] service.
 // @termsOfService http://swagger.io/terms/
 
 // @license.name Apache 2.0

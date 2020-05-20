@@ -11,11 +11,11 @@ var responseMessage interface{} [[ with .ModuleToParse.Model ]]
 
 //Endpoints struct 
 type Endpoints struct {
-	Create[[.Name | ToCamel]]  gin.HandlerFunc
+	Create[[.Name | ToCamel | ToSingular]]  gin.HandlerFunc
 	Get[[.Name | ToCamel]]ByID gin.HandlerFunc
 	GetAll[[.Name | ToCamel | ToPlural]] gin.HandlerFunc
-	Update[[.Name | ToCamel]]  gin.HandlerFunc
-	Delete[[.Name | ToCamel]]  gin.HandlerFunc
+	Update[[.Name | ToCamel | ToSingular]]  gin.HandlerFunc
+	Delete[[.Name | ToCamel | ToSingular]]  gin.HandlerFunc
 }
 
 //MakeEndpoints functions
@@ -23,7 +23,7 @@ func MakeEndpoints(s Service) Endpoints {
 	return Endpoints{
 		Create[[.Name | ToCamel]]: makeCreate[[.Name | ToCamel]]Endpoint(s),
 		Get[[.Name | ToCamel]]ByID: makeGet[[.Name | ToCamel]]ByIDEndpoint(s),
-		GetAll[[.Name | ToCamel | ToPlural]]: makeGetAll[[.Name | ToCamel]]Endpoint(s),
+		GetAll[[.Name | ToCamel | ToPlural]]: makeGetAll[[.Name | ToCamel | ToPlural]]Endpoint(s),
 		Update[[.Name | ToCamel]]: makeUpdate[[.Name | ToCamel]]Endpoint(s),
 		Delete[[.Name | ToCamel]]: makeDelete[[.Name | ToCamel]]Endpoint(s),
 	}
@@ -38,7 +38,7 @@ func MakeEndpoints(s Service) Endpoints {
 // @Failure 400 {object} config.StatusBadRequestResponse
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 500 {object} config.StatusInternalServerErrorResponse
-// @Tags [[.Name | ToLower]]
+// @Tags [[.Name | ToCamel]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
 // @Router /[[.Name | ToLower]] [post]
@@ -79,11 +79,11 @@ func makeCreate[[.Name | ToCamel]]Endpoint(s Service) gin.HandlerFunc {
 // @Success 200 {object} GetAll[[.Name | ToCamel | ToPlural]]Response
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 500 {object} config.StatusInternalServerErrorResponse
-// @Tags [[.Name | ToLower]]
+// @Tags [[.Name | ToCamel]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
 // @Router /[[.Name | ToCamel | ToPlural | ToLower]] [get]
-func makeGetAll[[.Name | ToCamel]]Endpoint(s Service) gin.HandlerFunc {
+func makeGetAll[[.Name | ToCamel | ToPlural]]Endpoint(s Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		[[.Name | ToCamel | ToPlural | ToLower]], err := s.GetAll[[.Name | ToCamel | ToPlural]]()
 		if err != nil {
@@ -122,7 +122,7 @@ func makeGetAll[[.Name | ToCamel]]Endpoint(s Service) gin.HandlerFunc {
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 404 {object} config.StatusNotFoundResponse
 // @Failure 500 {object} config.StatusInternalServerErrorResponse
-// @Tags [[.Name | ToLower]]
+// @Tags [[.Name | ToCamel]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
 // @Router /[[.Name | ToLower]]/{id} [get]
@@ -177,7 +177,7 @@ func makeGet[[.Name | ToCamel]]ByIDEndpoint(s Service) gin.HandlerFunc {
 // @Failure 400 {object} config.StatusBadRequestResponse
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 500 {object} config.StatusInternalServerErrorResponse
-// @Tags [[.Name | ToLower]]
+// @Tags [[.Name | ToCamel]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
 // @Router /[[.Name | ToLower]]/{id} [put]
@@ -230,7 +230,7 @@ func makeUpdate[[.Name | ToCamel]]Endpoint(s Service) gin.HandlerFunc {
 // @Failure 400 {object} config.StatusBadRequestResponse
 // @Failure 401 {object} config.StatusUnauthorizedResponse
 // @Failure 404 {object} config.StatusNotFoundResponse
-// @Tags [[.Name | ToLower]]
+// @Tags [[.Name | ToCamel]]
 // @Security ApiKeyAuth
 // @Security BasicAuth
 // @Router /[[.Name | ToLower]]/{id} [delete]
