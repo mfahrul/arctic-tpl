@@ -11,11 +11,11 @@ var responseMessage interface{} [[ with .ModuleToParse.Model ]]
 
 //Endpoints struct 
 type Endpoints struct {
-	Create[[.Name | ToCamel | ToSingular]]  gin.HandlerFunc
+	Create[[.Name | ToCamel]]  gin.HandlerFunc
 	Get[[.Name | ToCamel]]ByID gin.HandlerFunc
 	GetAll[[.Name | ToCamel | ToPlural]] gin.HandlerFunc
-	Update[[.Name | ToCamel | ToSingular]]  gin.HandlerFunc
-	Delete[[.Name | ToCamel | ToSingular]]  gin.HandlerFunc
+	Update[[.Name | ToCamel]]  gin.HandlerFunc
+	Delete[[.Name | ToCamel]]  gin.HandlerFunc
 }
 
 //MakeEndpoints functions

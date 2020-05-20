@@ -6,8 +6,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 [[ with .Model ]]
-//[[.Name | ToCamel | ToSingular]] struct
-type [[.Name | ToCamel | ToSingular]] struct {
+//[[.Name | ToCamel]] struct
+type [[.Name | ToCamel]] struct {
 	ID             *primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`[[ with .Structures ]][[ range . ]]
 	[[.Name | ToCamel]]       [[.Type]]              `bson:"[[.Name | ToCamel]]" json:"[[.Name | ToCamel | ToSnake]]"`[[ end ]][[ end ]]
 	IsDeleted      bool                `bson:"IsDeleted" json:"is_deleted"`
@@ -20,8 +20,8 @@ type [[.Name | ToCamel | ToSingular]] struct {
 }
 [[ end ]]
 [[ with .AddStructs ]] [[ range . ]]
-//[[.Name | ToCamel | ToSingular]] struct
-type [[.Name | ToCamel | ToSingular]] struct {
+//[[.Name | ToCamel]] struct
+type [[.Name | ToCamel]] struct {
 	ID             *primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`[[ with .Structures ]][[ range . ]]
 	[[.Name | ToCamel]]       [[.Type]]              `bson:"[[.Name | ToCamel]]" json:"[[.Name | ToSnake]]"`[[ end ]][[ end ]]
 	IsDeleted      bool                `bson:"IsDeleted" json:"is_deleted"`
@@ -36,8 +36,8 @@ type [[.Name | ToCamel | ToSingular]] struct {
 
 //Repository interface
 type Repository interface { [[ with .Model ]]
-	Create[[.Name | ToCamel | ToSingular]]([[.Name | ToLower]] [[.Name | ToCamel]]) (string, error)
-	Get[[.Name | ToCamel | ToSingular]]ByID(id string) ([[.Name | ToCamel]], error)
+	Create[[.Name | ToCamel]]([[.Name | ToLower]] [[.Name | ToCamel]]) (string, error)
+	Get[[.Name | ToCamel]]ByID(id string) ([[.Name | ToCamel]], error)
 	GetAll[[.Name | ToCamel | ToPlural]]() ([][[.Name | ToCamel]], error)
-	Update[[.Name | ToCamel | ToSingular]](id string, update interface{}) ([[.Name | ToCamel]], error) [[ end ]]
+	Update[[.Name | ToCamel]](id string, update interface{}) ([[.Name | ToCamel]], error) [[ end ]]
 }[[ end ]]

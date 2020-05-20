@@ -27,9 +27,9 @@ func router(ctx context.Context, r *gin.Engine, db *mongo.Database, logger log.L
 
 	endpoints := MakeEndpoints(coreSrv)
 	[[ with .ModuleToParse.Model ]]
-	r.POST("/[[.Name | ToLower | ToSingular]]", endpoints.Create[[.Name | ToCamel]])
+	r.POST("/[[.Name | ToLower]]", endpoints.Create[[.Name | ToCamel]])
 	r.GET("/[[.Name | ToLower | ToPlural]]", endpoints.GetAll[[.Name | ToCamel | ToPlural]])
-	r.GET("/[[.Name | ToLower | ToSingular]]/:ID", endpoints.Get[[.Name | ToCamel]]ByID)
-	r.PUT("/[[.Name | ToLower | ToSingular]]/:ID", endpoints.Update[[.Name | ToCamel]])
-	r.DELETE("/[[.Name | ToLower | ToSingular]]/:ID", endpoints.Delete[[.Name | ToCamel]]) [[ end ]]
+	r.GET("/[[.Name | ToLower]]/:ID", endpoints.Get[[.Name | ToCamel]]ByID)
+	r.PUT("/[[.Name | ToLower]]/:ID", endpoints.Update[[.Name | ToCamel]])
+	r.DELETE("/[[.Name | ToLower]]/:ID", endpoints.Delete[[.Name | ToCamel]]) [[ end ]]
 }
