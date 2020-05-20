@@ -11,7 +11,7 @@ type (
 	//Create[[.Name | ToCamel]]Req : struct for create [[.Name | ToLower]] request
 	Create[[.Name | ToCamel]]Req struct { [[ with .Structures ]][[ range . ]]
 		[[.Name | ToCamel]]       [[.Type]]   `form:"[[.Name | ToCamel | ToSnake]],omitempty" json:"[[.Name | ToCamel | ToSnake]],omitempty"` [[ end ]][[ end ]]
-		CreatedBy      string   `form:"created_by,omitempty" json:"created_by,omitempty"`
+		CreatedBy      string   `form:"created_by,omitempty" json:"created_by,omitempty" binding:"required"`
 	}
 
 	//Get[[.Name | ToCamel]]Request : struct for get [[.Name | ToLower]] request
@@ -23,7 +23,7 @@ type (
 	Update[[.Name | ToCamel]]Req struct { [[ with .Structures ]][[ range . ]]
 		[[.Name | ToCamel]]       *[[.Type]]   `bson:"[[.Name | ToCamel]]" form:"[[.Name | ToCamel | ToSnake]],omitempty" json:"[[.Name | ToCamel | ToSnake]],omitempty"`[[ end ]][[ end ]]
 		Status         *int      `bson:"Status" form:"status,omitempty" json:"status,omitempty"` //0, 1, 9 => notactive, activate, ban
-		UpdatedBy      *string   `bson:"id:UpdatedBy" form:"id:updated_by,omitempty" json:"id:updated_by,omitempty"`
+		UpdatedBy      *string   `bson:"id:UpdatedBy" form:"id:updated_by,omitempty" json:"id:updated_by,omitempty" binding:"required"`
 	}
 
 	//Delete[[.Name | ToCamel]]Request : struct for delete [[.Name | ToLower]] request

@@ -27,7 +27,7 @@ func NewService(repo Repository, logger log.Logger) Service {
 [[ with .ModuleToParse.Model ]]
 
 func (s service) Create[[.Name | ToCamel]](itm Create[[.Name | ToCamel]]Req) ([[.Name | ToLower]]ID string, err error) {
-	logger := log.With(s.logger, "method", "Register [[.Name | ToCamel]]")
+	logger := log.With(s.logger, "method", "Create[[.Name | ToCamel]]")
 
 	tn := time.Now()
 	createdBy, _ := primitive.ObjectIDFromHex(itm.CreatedBy)
@@ -41,42 +41,42 @@ func (s service) Create[[.Name | ToCamel]](itm Create[[.Name | ToCamel]]Req) ([[
 	if err != nil {
 		level.Error(logger).Log("err", err)
 	} else {
-		level.Info(logger).Log("Create [[.Name | ToLower]] success with id ", [[.Name | ToLower]]ID)
+		level.Info(logger).Log("Create[[.Name | ToCamel]]Success", [[.Name | ToLower]]ID)
 	}
 
 	return
 }
 
 func (s service) GetAll[[.Name | ToCamel | ToPlural]]() (items [][[.Name | ToCamel]], err error) {
-	logger := log.With(s.logger, "method", "Get All [[.Name | ToCamel]]")
+	logger := log.With(s.logger, "method", "GetAll[[.Name | ToCamel | ToPlural]]")
 
 	items, err = s.repo.GetAll[[.Name | ToCamel | ToPlural]]()
 	if err != nil {
 		level.Error(logger).Log("err", err)
 	} else {
 		// i, _ := json.Marshal(items)
-		level.Info(logger).Log("Get items ", len(items))
+		level.Info(logger).Log("GetAll[[.Name | ToCamel | ToPlural]]Success", len(items))
 	}
 
 	return
 }
 
 func (s service) Get[[.Name | ToCamel]]ByID(id string) ([[.Name | ToLower]] [[.Name | ToCamel]], err error) {
-	logger := log.With(s.logger, "method", "Get[[.Name | ToCamel]]")
+	logger := log.With(s.logger, "method", "Get[[.Name | ToCamel]]ByID")
 
 	[[.Name | ToLower]], err = s.repo.Get[[.Name | ToCamel]]ByID(id)
 	if err != nil {
 		level.Error(logger).Log("err", err)
 	} else {
 		i, _ := json.Marshal([[.Name | ToLower]])
-		level.Info(logger).Log("Get [[.Name | ToLower]] ", string(i))
+		level.Info(logger).Log("Get[[.Name | ToCamel]]ByIDSuccess", string(i))
 	}
 
 	return
 }
 
 func (s service) Update[[.Name | ToCamel]](uid string, updt Update[[.Name | ToCamel]]Req) ([[.Name | ToLower]] [[.Name | ToCamel]], err error) {
-	logger := log.With(s.logger, "method", "Update [[.Name | ToCamel]]")
+	logger := log.With(s.logger, "method", "Update[[.Name | ToCamel]]")
 
 	tn := time.Now()
 
@@ -89,14 +89,14 @@ func (s service) Update[[.Name | ToCamel]](uid string, updt Update[[.Name | ToCa
 		level.Error(logger).Log("err", err)
 	} else {
 		i, _ := json.Marshal([[.Name | ToLower]])
-		level.Info(logger).Log("Updated [[.Name | ToLower]] ", string(i))
+		level.Info(logger).Log("Update[[.Name | ToCamel]]Success", string(i))
 	}
 
 	return
 }
 
 func (s service) Delete[[.Name | ToCamel]](uid string, deletedby string) ([[.Name | ToLower]] [[.Name | ToCamel]], err error) {
-	logger := log.With(s.logger, "method", "Delete [[.Name | ToCamel]]")
+	logger := log.With(s.logger, "method", "Delete[[.Name | ToCamel]]")
 
 	type deleteStruct struct {
 		DeletedBy string     `bson:"id:DeletedBy"`
@@ -118,7 +118,7 @@ func (s service) Delete[[.Name | ToCamel]](uid string, deletedby string) ([[.Nam
 		level.Error(logger).Log("err", err)
 	} else {
 		i, _ := json.Marshal([[.Name | ToLower]])
-		level.Info(logger).Log("Deleted [[.Name | ToLower]] ", string(i))
+		level.Info(logger).Log("Delete[[.Name | ToCamel]]Success", string(i))
 	}
 
 	return

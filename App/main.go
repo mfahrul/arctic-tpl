@@ -13,7 +13,7 @@ import (
 	"[[.Projectpath]]/config/database"
 	_"[[.Projectpath]]/docs" //COMMENT THIS LINE TO DISABLE DOCS
 	[[$Ppath := .Projectpath]][[ with .Modules ]][[ range . ]]
-	_ "[[$Ppath]]/src/[[.Name || ToLower | ToSingular]]"[["\n"]][[ end ]][[ end ]]
+	_ "[[$Ppath]]/src/[[.Name | ToLower]]"[["\n"]][[ end ]][[ end ]]
 	"[[.Projectpath]]/route"
 )
 
