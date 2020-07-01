@@ -17,9 +17,9 @@ import (
 	"[[.Projectpath]]/route"
 )
 
-// @title Giftano [[.Projectname | ToCamel | ToPlural]] API Docs
+// @title Giftano [[.Projectname | ToCamel]] API Docs
 // @version 0.1.1
-// @description [[.Projectname | ToCamel | ToPlural]] service.
+// @description [[.Projectname | ToCamel]] service.
 // @termsOfService http://swagger.io/terms/
 
 // @license.name Apache 2.0
@@ -31,18 +31,20 @@ import (
 // @in header
 // @name apikey
 
-// @host localhost:8080
 // @BasePath /
 
 func main() {
 	var httpAddr = flag.String("http", ":8080", "http listen address")
 
+	e := config.NewConfig()
+
+	docs.SwaggerInfo.Host = e.DOCHost
 	var logger log.Logger
 	{
 		logger = log.NewLogfmtLogger(os.Stderr)
 		logger = log.NewSyncLogger(logger)
 		logger = log.With(logger,
-			"service", "users",
+			"service", e.ServiceName,
 			"time:", log.DefaultTimestampUTC,
 			"caller", log.DefaultCaller,
 		)

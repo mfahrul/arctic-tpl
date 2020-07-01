@@ -15,6 +15,7 @@ type Environment struct {
 	DbHost      string `envconfig:"DBHOST" default:"[[.Dbhost]]"`
 	DbPort      string `envconfig:"DBPORT" default:"[[.Dbport]]"`
 	ServiceName string `envconfig:"SERVICENAME" default:"[[.Projectname | ToLower]]"`
+	DOCHost     string `envconfig:"DOCHOST" default:"localhost:8080"`
 }
 
 //NewConfig function

@@ -172,7 +172,7 @@ func makeGet[[.Name | ToCamel]]ByIDEndpoint(s Service) gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param id path string true "[[.Name | ToCamel]] ID"
-// @Param [[.Name | ToLower]] body [[.Name | ToCamel]] true "[[.Name | ToCamel]] Param"
+// @Param [[.Name | ToLower]] body Update[[.Name | ToCamel]]Req true "Update[[.Name | ToCamel]]Req Param"
 // @Success 200 {object} Get[[.Name | ToCamel]]Response
 // @Failure 400 {object} config.StatusBadRequestResponse
 // @Failure 401 {object} config.StatusUnauthorizedResponse
