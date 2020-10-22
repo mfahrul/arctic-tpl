@@ -81,24 +81,29 @@ func (repo *repo) GetAll[[.Name | ToCamel | ToPlural]]() (results [][[.Name | To
 
 	// Finding multiple documents returns a cursor
 	// Iterating through the cursor allows us to decode documents one at a time
-	for cur.Next(repo.ctx) {
+	
+	// for cur.Next(repo.ctx) {
 
-		// create a value into which the single document can be decoded
-		var elem [[.Name | ToCamel]]
-		err := cur.Decode(&elem)
-		if err != nil {
-			return nil, err
-		}
+	// 	// create a value into which the single document can be decoded
+	// 	var elem [[.Name | ToCamel]]
+	// 	err := cur.Decode(&elem)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
 
-		results = append(results, elem)
-	}
+	// 	results = append(results, elem)
+	// }
 
-	if err := cur.Err(); err != nil {
+	// if err := cur.Err(); err != nil {
+	// 	return nil, err
+	// }
+
+	if err := cur.All(repo.ctx, &results); err != nil {
 		return nil, err
 	}
 
 	// Close the cursor once finished
-	cur.Close(repo.ctx)
+	// cur.Close(repo.ctx)
 
 	return results, nil
 }
